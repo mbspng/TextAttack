@@ -24,14 +24,20 @@ class GPT2(LanguageModelConstraint):
     (openai.com/blog/better-language-models/)
     """
 
-    def __init__(self, **kwargs):
+    def __init__(self, model_id="gpt2", **kwargs):
+        """
+
+        Args:
+            gpt2_model_id: id of GPT2 model
+            **kwargs:
+        """
         import transformers
 
         # re-enable notifications
         os.environ["WANDB_SILENT"] = "0"
-        self.model = transformers.GPT2LMHeadModel.from_pretrained("gpt2")
+        self.model = transformers.GPT2LMHeadModel.from_pretrained(model_id)
         self.model.to(utils.device)
-        self.tokenizer = transformers.GPT2Tokenizer.from_pretrained("gpt2")
+        self.tokenizer = transformers.GPT2Tokenizer.from_pretrained(model_id)
         super().__init__(**kwargs)
 
     def get_log_probs_at_index(self, text_list, word_index):
