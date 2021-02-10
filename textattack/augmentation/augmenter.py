@@ -104,7 +104,7 @@ class Augmenter:
 
                 # update words_swapped based on modified indices
                 words_swapped = len(current_text.attack_attrs["modified_indices"])
-            all_transformed_texts.add(current_text)
+            all_transformed_texts |= {*transformed_texts}
         return sorted([at.printable_text() for at in all_transformed_texts])
 
     def augment_many(self, text_list, show_progress=False):
